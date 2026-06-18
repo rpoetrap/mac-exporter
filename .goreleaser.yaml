@@ -56,11 +56,3 @@ release:
 
 checksum:
   name_template: checksums.txt
-
-brews:
-  - name: mac-exporter
-    repository:
-      owner: rpoetrap
-      name: homebrew-tap
-    homepage: "https://github.com/rpoetrap/mac-exporter"
-    description: "A Prometheus exporter for macOS system metrics using powermetrics and vm_stat commands."
