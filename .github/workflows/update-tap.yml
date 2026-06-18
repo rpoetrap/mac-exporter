@@ -11,28 +11,12 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Compute asset URL and SHA256
-        id: asset
-        run: |
-          VERSION="${{ github.event.workflow_run.head_branch }}"
-          URL="https://github.com/rpoetrap/mac-exporter/releases/download/${VERSION}/mac-exporter_Darwin_arm64.tar.gz"
-          SHA256=$(curl -sL "$URL" | sha256sum | awk '{print $1}')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "url=$URL" >> "$GITHUB_OUTPUT"
-          echo "sha256=$SHA256" >> "$GITHUB_OUTPUT"
-
-      - name: Clone tap and update formula
+      - uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: mac-exporter
+          formula-path: Formula/mac-exporter.rb
+          homebrew-tap: rpoetrap/homebrew-tap
+          tag-name: ${{ github.event.workflow_run.head_branch }}
+          download-url: https://github.com/rpoetrap/mac-exporter/releases/download/${{ github.event.workflow_run.head_branch }}/mac-exporter_Darwin_arm64.tar.gz
         env:
-          HOMEBREW_PAT: ${{ secrets.HOMEBREW_PAT }}
-        run: |
-          git clone "https://x-access-token:${HOMEBREW_PAT}@github.com/rpoetrap/homebrew-tap.git"
-          cd homebrew-tap
-
-          sed -i "s|url \".*\"|url \"${{ steps.asset.outputs.url }}\"|" Formula/mac-exporter.rb
-          sed -i "s|sha256 \".*\"|sha256 \"${{ steps.asset.outputs.sha256 }}\"|" Formula/mac-exporter.rb
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/mac-exporter.rb
-          git commit -m "Update mac-exporter to ${{ steps.asset.outputs.version }}"
-          git push
+          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_PAT }}
