@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"mac-powermetrics-exporter/internal/collector"
-	"mac-powermetrics-exporter/internal/config"
+	"mac-exporter/internal/collector"
+	"mac-exporter/internal/config"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

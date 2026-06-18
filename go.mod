@@ -1,4 +1,4 @@
-module mac-powermetrics-exporter
+module mac-exporter
 
 go 1.23.7
 

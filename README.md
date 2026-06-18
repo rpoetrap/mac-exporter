@@ -44,18 +44,18 @@ The application is structured with a modular architecture:
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd mac-powermetrics-exporter
+cd mac-exporter
 ```
 
 2. Build the binary:
 ```bash
-go build -o mac-powermetrics-exporter cmd/main.go
+go build -o mac-exporter cmd/main.go
 ```
 
 3. Install the binary:
 ```bash
-sudo cp mac-powermetrics-exporter /usr/local/bin/
-sudo chmod +x /usr/local/bin/mac-powermetrics-exporter
+sudo cp mac-exporter /usr/local/bin/
+sudo chmod +x /usr/local/bin/mac-exporter
 ```
 
 ## Usage
@@ -64,7 +64,7 @@ sudo chmod +x /usr/local/bin/mac-powermetrics-exporter
 
 Run the exporter manually (requires sudo):
 ```bash
-sudo ./mac-powermetrics-exporter
+sudo ./mac-exporter
 ```
 
 Or run directly from source:
@@ -83,43 +83,43 @@ The exporter runs as a LaunchDaemon with root privileges to access `powermetrics
 
 1. Update the plist file to point to the correct binary location:
 ```bash
-# Edit ninja.oppai.mac-powermetrics-exporter.plist if needed
-# Ensure the ProgramArguments points to /usr/local/bin/mac-powermetrics-exporter
+# Edit dev.poth.mac-exporter.plist if needed
+# Ensure the ProgramArguments points to /usr/local/bin/mac-exporter
 ```
 
 2. Copy the plist file to LaunchDaemons directory:
 ```bash
-sudo cp ninja.oppai.mac-powermetrics-exporter.plist /Library/LaunchDaemons/
+sudo cp dev.poth.mac-exporter.plist /Library/LaunchDaemons/
 ```
 
 3. Set proper permissions:
 ```bash
-sudo chown root:wheel /Library/LaunchDaemons/ninja.oppai.mac-powermetrics-exporter.plist
-sudo chmod 644 /Library/LaunchDaemons/ninja.oppai.mac-powermetrics-exporter.plist
+sudo chown root:wheel /Library/LaunchDaemons/dev.poth.mac-exporter.plist
+sudo chmod 644 /Library/LaunchDaemons/dev.poth.mac-exporter.plist
 ```
 
 4. Load the LaunchDaemon:
 ```bash
-sudo launchctl load /Library/LaunchDaemons/ninja.oppai.mac-powermetrics-exporter.plist
+sudo launchctl load /Library/LaunchDaemons/dev.poth.mac-exporter.plist
 ```
 
 5. Verify the service is running:
 ```bash
-sudo launchctl list | grep mac-powermetrics-exporter
+sudo launchctl list | grep mac-exporter
 ```
 
 6. To unload the service:
 ```bash
-sudo launchctl unload /Library/LaunchDaemons/ninja.oppai.mac-powermetrics-exporter.plist
+sudo launchctl unload /Library/LaunchDaemons/dev.poth.mac-exporter.plist
 ```
 
 7. To start/stop the service manually:
 ```bash
 # Start
-sudo launchctl start ninja.oppai.mac-powermetrics-exporter
+sudo launchctl start dev.poth.mac-exporter
 
 # Stop
-sudo launchctl stop ninja.oppai.mac-powermetrics-exporter
+sudo launchctl stop dev.poth.mac-exporter
 ```
 
 ## Development
@@ -272,8 +272,8 @@ prometheus.MustRegister(collector.NewYourNewCollector())
 
 Check the LaunchDaemon logs:
 ```bash
-tail -f /var/log/mac-powermetrics-exporter.out.log
-tail -f /var/log/mac-powermetrics-exporter.err.log
+tail -f /var/log/mac-exporter.out.log
+tail -f /var/log/mac-exporter.err.log
 ```
 
 ### Testing

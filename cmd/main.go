@@ -5,16 +5,15 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"mac-powermetrics-exporter/internal/config"
-	"mac-powermetrics-exporter/internal/server"
+	"mac-exporter/internal/config"
+	"mac-exporter/internal/server"
 )
 
 func main() {
 	cfg := config.New()
 
 	cmd := &cobra.Command{
-		Use:     "mac-powermetrics-exporter",
-		Aliases: []string{"mac-exporter"},
+		Use:     "mac-exporter",
 		Short:   "A Prometheus exporter for macOS system metrics using powermetrics and vm_stat commands.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			srv := server.New(cfg)
